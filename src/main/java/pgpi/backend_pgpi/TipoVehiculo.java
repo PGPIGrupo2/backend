@@ -10,7 +10,7 @@ public class TipoVehiculo {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
-  private String descripcion; //Forgoneta, lona, trailer
+  private String descripcion; //Furgoneta, lona, trailer
 
   public String getDescripcion() {
 	return descripcion;

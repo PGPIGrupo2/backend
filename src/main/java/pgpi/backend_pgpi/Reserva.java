@@ -1,9 +1,14 @@
 package pgpi.backend_pgpi;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Reserva {
@@ -11,18 +16,26 @@ public class Reserva {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
-	private Vehiculo vehiculo;
+	private String matricula;
+	  @ManyToOne()
+	  @JoinColumn(name = "tipoVehiculo")
 	private TipoVehiculo tipoVehiculo;
-	private Horario horaInicio;
+	private int horaInicio;
+	  @ManyToOne()
+	  @JoinColumn(name = "pedido")
 	private Pedido pedido;
+	  @ManyToOne()
+	  @JoinColumn(name = "tipoPedido")
 	private TipoPedido tipoPedido;
+	  @ManyToOne()
+	  @JoinColumn(name = "muelle")
 	private Muelle muelle;
 	
-	public Vehiculo getVehiculo() {
-		return vehiculo;
+	public String getMatricula() {
+		return matricula;
 	}
-	public void setVehiculo(Vehiculo vehiculo) {
-		this.vehiculo = vehiculo;
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
 	}
 	public Pedido getPedido() {
 		return pedido;
@@ -36,10 +49,10 @@ public class Reserva {
 	public void setMuelle(Muelle muelle) {
 		this.muelle = muelle;
 	}
-	public Horario getHoraInicio() {
+	public int getHoraInicio() {
 		return horaInicio;
 	}
-	public void setHoraInicio(Horario horaInicio) {
+	public void setHoraInicio(int horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 	public TipoPedido getTipoPedido() {

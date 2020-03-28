@@ -10,8 +10,17 @@ public class Pedido {
   @Id
   @GeneratedValue(strategy=GenerationType.AUTO)
   private Integer id;
+  private Integer pedidoId;
 
-  public Integer getId() {
+  public Integer getPedidoId() {
+	return pedidoId;
+}
+
+public void setPedidoId(Integer pedidoId) {
+	this.pedidoId = pedidoId;
+}
+
+public Integer getId() {
     return id;
   }
 
