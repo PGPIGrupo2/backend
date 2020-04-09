@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -170,6 +172,32 @@ public class MainController {
 	  reservaRepository.save(reserva);
 	  return "Saved reserva";
   }
+  
+  @PutMapping(path="/reserva/")
+  public @ResponseBody String editReserva (@RequestParam Integer id, @RequestParam String matricula) {
+	  Optional<Reserva> optional = reservaRepository.findById(id);
+
+	  if (!optional.isPresent()) {
+		  return "Reserva Id does not exist";
+	  }
+	  
+	  Reserva reserva = optional.get();
+	  
+	  reserva.setMatricula(matricula);
+	  reservaRepository.save(reserva);
+	  return "Reserva Modified";
+  }
+  
+  @DeleteMapping(path="/reserva/")
+  public @ResponseBody String deleteReserva (@RequestParam Integer id) {
+	  Optional<Reserva> optional = reservaRepository.findById(id);
+
+	  if (!optional.isPresent()) {
+		  return "Reserva Id does not exist";
+	  }
+	  reservaRepository.deleteById(id);
+	  return "Reserva Deleted";
+  }
 
   @GetMapping(path="/reserva/") // Peticiones GET
   public @ResponseBody Iterable<Reserva> getReservas(@RequestParam(required=false) Integer[] ids, @RequestParam(required=false) String matricula
@@ -191,6 +219,19 @@ public class MainController {
 	// Se se recbe algun id, se devuelven solo esos
 	Iterable<Integer> iterable = Arrays.asList(ids);
     return reservaRepository.findAllById(iterable);
+  }
+  
+  @GetMapping(path="/validarReserva/")
+  public @ResponseBody boolean validateReserva(@RequestParam String matricula, @RequestParam Integer hora, @RequestParam Integer minuto) {
+    // Si no se recibi id, se devuelven todas las CheckLists
+	Iterable<Reserva> reservas = reservaRepository.findByMatricula(matricula);
+	for(Reserva reserva : reservas){
+		if ((reserva.getHoraInicio() == hora && minuto <= 10) || 
+				(reserva.getHoraInicio() == hora-1 && minuto >= 50)) {
+			return true;
+		}
+	}
+	return false;
   }
 
   @GetMapping(path="/muelle/") // Peticiones GET
