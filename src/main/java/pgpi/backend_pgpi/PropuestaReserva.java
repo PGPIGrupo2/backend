@@ -23,10 +23,10 @@ public class PropuestaReserva {
 	public void setMuelleId(int muelleId) {
 		this.muelleId = muelleId;
 	}
-	public int getHoraInicio() {
+	public int getHora() {
 		return hora;
 	}
-	public void setHoraInicio(int hora) {
+	public void setHora(int hora) {
 		this.hora = hora;
 	}
 }
