@@ -1,5 +1,6 @@
 package pgpi.backend_pgpi;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -232,6 +233,70 @@ public class MainController {
 		}
 	}
 	return false;
+  }
+  
+  @GetMapping(path="/proponerReserva/")
+  public @ResponseBody ArrayList<PropuestaReserva> proposeReserva(@RequestParam Integer tipoPedidoId, @RequestParam Integer tipoVehiculoId) {
+
+	  ArrayList<PropuestaReserva> propuestaReserva = new ArrayList<PropuestaReserva>();
+	  Optional<TipoVehiculo> tipoVehiculo = tipoVehiculoRepository.findById(tipoVehiculoId);	
+	  if (!tipoVehiculo.isPresent()) {
+		  return propuestaReserva;
+	  }
+	  
+	  Iterable<Muelle> muelles = muelleRepository.findByTipoVehiculo(tipoVehiculo.get());
+	  
+	  for(Muelle muelle : muelles) {
+		  if(muelle.getTipoPedido6().getId() == tipoPedidoId) {
+			  propuestaReserva.add(new PropuestaReserva(muelle.getId(), 6));
+		  }
+		  if(propuestaReserva.size() == 3) {
+			  break;
+		  }
+		  if(muelle.getTipoPedido7().getId() == tipoPedidoId) {
+			  propuestaReserva.add(new PropuestaReserva(muelle.getId(), 7));
+		  }
+		  if(propuestaReserva.size() == 3) {
+			  break;
+		  }
+		  if(muelle.getTipoPedido8().getId() == tipoPedidoId) {
+			  propuestaReserva.add(new PropuestaReserva(muelle.getId(), 8));
+		  }
+		  if(propuestaReserva.size() == 3) {
+			  break;
+		  }
+		  if(muelle.getTipoPedido9().getId() == tipoPedidoId) {
+			  propuestaReserva.add(new PropuestaReserva(muelle.getId(), 9));
+		  }
+		  if(propuestaReserva.size() == 3) {
+			  break;
+		  }
+		  if(muelle.getTipoPedido10().getId() == tipoPedidoId) {
+			  propuestaReserva.add(new PropuestaReserva(muelle.getId(), 10));
+		  }
+		  if(propuestaReserva.size() == 3) {
+			  break;
+		  }
+		  if(muelle.getTipoPedido11().getId() == tipoPedidoId) {
+			  propuestaReserva.add(new PropuestaReserva(muelle.getId(), 11));
+		  }
+		  if(propuestaReserva.size() == 3) {
+			  break;
+		  }
+		  if(muelle.getTipoPedido12().getId() == tipoPedidoId) {
+			  propuestaReserva.add(new PropuestaReserva(muelle.getId(), 12));
+		  }
+		  if(propuestaReserva.size() == 3) {
+			  break;
+		  }
+		  if(muelle.getTipoPedido13().getId() == tipoPedidoId) {
+			  propuestaReserva.add(new PropuestaReserva(muelle.getId(), 13));
+		  }
+		  if(propuestaReserva.size() == 3) {
+			  break;
+		  }
+	  }
+	  return propuestaReserva;
   }
 
   @GetMapping(path="/muelle/") // Peticiones GET
