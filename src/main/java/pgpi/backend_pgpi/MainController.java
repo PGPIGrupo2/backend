@@ -228,7 +228,7 @@ public class MainController {
 	Iterable<Reserva> reservas = reservaRepository.findByMatricula(matricula);
 	for(Reserva reserva : reservas){
 		if ((reserva.getHoraInicio() == hora && minuto <= 10) || 
-				(reserva.getHoraInicio() == hora-1 && minuto >= 50)) {
+				(reserva.getHoraInicio()-1 == hora && minuto >= 50)) {
 			return true;
 		}
 	}
